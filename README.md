@@ -1,35 +1,26 @@
 
-# Introduction - Pandas ETL
+# Pandas - ETL
 
 ## Introduction
 
 In this section, you will learn invaluable skills that will form the foundation of your data processing work. Before you can apply machine learning algorithms or do interesting analyses, you often must clean and transform your data into a suitable format. Such initial data wrangling processes are often referred to as Extract Transform Load (ETL). Our primary tool of choice for performing ETL and basic analyses will be the Pandas package.
 
-## Objectives
-
-You will be able to:
-
-* Apply functions to columns to extract pertinent information
-* Group datasets by categories or features
-* Find duplicate data
-* Remove duplicate data
-* Create pivot tables
 
 
 ## Why ETL?
 
-ETL is an essential first step to data analysis and data science. It also will form the foundation for exploratory data analysis. Often, you will be thrown a dataset that you have little to no information about. In these cases, your first step is to explore the data and get familiar with it. What are the columns? How many observations do you have? Are there missing values? If we have user-level data, how can we explore aggregate trends along features like gender, race, or geography? All of these can be answered by applying ETL to transform raw datasets into alternative useful views.
+ETL is an essential first step to data analysis and data science. It also will form the foundation for exploratory data analysis. Often, you will be thrown a dataset that you have little to no information about. In these cases, your first step is to explore the data and get familiar with it. What are the columns? How many observations do you have? Are there missing values? Any outliers? If we have user-level data, how can we explore aggregate trends along features like gender, race, or geography? All of these can be answered by applying ETL to transform raw datasets into alternative useful views.
 
-## Quick ETL Examples
+## Quick ETL Example
 
 While you'll see complete examples and explanations for all of these techniques (and more), here's a quick preview of some ETL techniques covered in this section! For more details, continue on to future lessons!
 
-### Reading in Data
+### Import data
 
 
 ```python
 import pandas as pd
-df = pd.read_csv('Yelp_Reviews.csv')
+df = pd.read_csv('Yelp_Reviews.csv', index_col=0)
 df.head()
 ```
 
@@ -54,7 +45,6 @@ df.head()
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>Unnamed: 0</th>
       <th>business_id</th>
       <th>cool</th>
       <th>date</th>
@@ -68,8 +58,7 @@ df.head()
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
-      <td>1</td>
+      <th>1</th>
       <td>pomGBqfbxcqPv14c3XH-ZQ</td>
       <td>0</td>
       <td>2012-11-13</td>
@@ -81,8 +70,7 @@ df.head()
       <td>msQe1u7Z_XuqjGoqhB0J5g</td>
     </tr>
     <tr>
-      <th>1</th>
-      <td>2</td>
+      <th>2</th>
       <td>jtQARsP6P-LbkyjbO1qNGg</td>
       <td>1</td>
       <td>2014-10-23</td>
@@ -94,8 +82,7 @@ df.head()
       <td>msQe1u7Z_XuqjGoqhB0J5g</td>
     </tr>
     <tr>
-      <th>2</th>
-      <td>4</td>
+      <th>4</th>
       <td>Ums3gaP2qM3W1XcA5r6SsQ</td>
       <td>0</td>
       <td>2014-09-05</td>
@@ -107,8 +94,7 @@ df.head()
       <td>msQe1u7Z_XuqjGoqhB0J5g</td>
     </tr>
     <tr>
-      <th>3</th>
-      <td>5</td>
+      <th>5</th>
       <td>vgfcTvK81oD4r50NMjU2Ag</td>
       <td>0</td>
       <td>2011-02-25</td>
@@ -120,8 +106,7 @@ df.head()
       <td>msQe1u7Z_XuqjGoqhB0J5g</td>
     </tr>
     <tr>
-      <th>4</th>
-      <td>10</td>
+      <th>10</th>
       <td>yFumR3CWzpfvTH2FCthvVw</td>
       <td>0</td>
       <td>2016-06-15</td>
@@ -138,11 +123,11 @@ df.head()
 
 
 
-### Appling Functions
+### Apply functions
 
 
 ```python
-df['Review_Word_Length'] = df.text.map(lambda x: len(x.split()))
+df['Review_Word_Length'] = df['text'].map(lambda x: len(x.split()))
 df.head()
 ```
 
@@ -167,7 +152,6 @@ df.head()
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>Unnamed: 0</th>
       <th>business_id</th>
       <th>cool</th>
       <th>date</th>
@@ -182,8 +166,7 @@ df.head()
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
-      <td>1</td>
+      <th>1</th>
       <td>pomGBqfbxcqPv14c3XH-ZQ</td>
       <td>0</td>
       <td>2012-11-13</td>
@@ -196,8 +179,7 @@ df.head()
       <td>58</td>
     </tr>
     <tr>
-      <th>1</th>
-      <td>2</td>
+      <th>2</th>
       <td>jtQARsP6P-LbkyjbO1qNGg</td>
       <td>1</td>
       <td>2014-10-23</td>
@@ -210,8 +192,7 @@ df.head()
       <td>30</td>
     </tr>
     <tr>
-      <th>2</th>
-      <td>4</td>
+      <th>4</th>
       <td>Ums3gaP2qM3W1XcA5r6SsQ</td>
       <td>0</td>
       <td>2014-09-05</td>
@@ -224,8 +205,7 @@ df.head()
       <td>30</td>
     </tr>
     <tr>
-      <th>3</th>
-      <td>5</td>
+      <th>5</th>
       <td>vgfcTvK81oD4r50NMjU2Ag</td>
       <td>0</td>
       <td>2011-02-25</td>
@@ -238,8 +218,7 @@ df.head()
       <td>82</td>
     </tr>
     <tr>
-      <th>4</th>
-      <td>10</td>
+      <th>10</th>
       <td>yFumR3CWzpfvTH2FCthvVw</td>
       <td>0</td>
       <td>2016-06-15</td>
@@ -257,7 +236,7 @@ df.head()
 
 
 
-### Grouping Data
+### Group data
 
 
 ```python
@@ -277,11 +256,11 @@ df.groupby('business_id')['stars'].mean().head()
 
 
 
-### Checking for Duplicates
+### Check for duplicates
 
 
 ```python
-#Use the keep=False to keep the duplicates and sort values to put duplicates next to each other
+# Use the keep=False to keep the duplicates and sort values to put duplicates next to each other
 df[df.duplicated(keep=False)].sort_values(by='business_id')
 ```
 
@@ -306,7 +285,6 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>Unnamed: 0</th>
       <th>business_id</th>
       <th>cool</th>
       <th>date</th>
@@ -321,8 +299,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
   </thead>
   <tbody>
     <tr>
-      <th>2232</th>
-      <td>1729</td>
+      <th>1729</th>
       <td>-GY2fx-8udXPY8qn2HVBCg</td>
       <td>0</td>
       <td>2016-08-30</td>
@@ -335,8 +312,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>55</td>
     </tr>
     <tr>
-      <th>473</th>
-      <td>1729</td>
+      <th>1729</th>
       <td>-GY2fx-8udXPY8qn2HVBCg</td>
       <td>0</td>
       <td>2016-08-30</td>
@@ -349,8 +325,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>55</td>
     </tr>
     <tr>
-      <th>1690</th>
-      <td>754</td>
+      <th>754</th>
       <td>-LRlx2j9_LB3evsRRcC9MA</td>
       <td>0</td>
       <td>2017-10-07</td>
@@ -363,8 +338,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>33</td>
     </tr>
     <tr>
-      <th>222</th>
-      <td>754</td>
+      <th>754</th>
       <td>-LRlx2j9_LB3evsRRcC9MA</td>
       <td>0</td>
       <td>2017-10-07</td>
@@ -377,8 +351,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>33</td>
     </tr>
     <tr>
-      <th>811</th>
-      <td>2767</td>
+      <th>2767</th>
       <td>-MKWJZnMjSit406AUKf7Pg</td>
       <td>0</td>
       <td>2015-01-03</td>
@@ -391,8 +364,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>18</td>
     </tr>
     <tr>
-      <th>2358</th>
-      <td>2767</td>
+      <th>2767</th>
       <td>-MKWJZnMjSit406AUKf7Pg</td>
       <td>0</td>
       <td>2015-01-03</td>
@@ -405,8 +377,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>18</td>
     </tr>
     <tr>
-      <th>898</th>
-      <td>3126</td>
+      <th>3126</th>
       <td>-eIvRc3aEvufstBumpBTPQ</td>
       <td>0</td>
       <td>2015-07-02</td>
@@ -419,8 +390,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>95</td>
     </tr>
     <tr>
-      <th>2588</th>
-      <td>3126</td>
+      <th>3126</th>
       <td>-eIvRc3aEvufstBumpBTPQ</td>
       <td>0</td>
       <td>2015-07-02</td>
@@ -433,8 +403,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>95</td>
     </tr>
     <tr>
-      <th>2074</th>
-      <td>2092</td>
+      <th>2092</th>
       <td>-lJtyCOTVInWusU9YF120A</td>
       <td>0</td>
       <td>2015-11-08</td>
@@ -447,8 +416,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>27</td>
     </tr>
     <tr>
-      <th>594</th>
-      <td>2092</td>
+      <th>2092</th>
       <td>-lJtyCOTVInWusU9YF120A</td>
       <td>0</td>
       <td>2015-11-08</td>
@@ -461,8 +429,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>27</td>
     </tr>
     <tr>
-      <th>467</th>
-      <td>1707</td>
+      <th>1707</th>
       <td>01fuY2NNscttoTxOYbuZXw</td>
       <td>0</td>
       <td>2016-07-08</td>
@@ -475,8 +442,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>45</td>
     </tr>
     <tr>
-      <th>1489</th>
-      <td>1707</td>
+      <th>1707</th>
       <td>01fuY2NNscttoTxOYbuZXw</td>
       <td>0</td>
       <td>2016-07-08</td>
@@ -489,8 +455,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>45</td>
     </tr>
     <tr>
-      <th>1473</th>
-      <td>1527</td>
+      <th>1527</th>
       <td>04u-szAykldu-caSDHQaKA</td>
       <td>0</td>
       <td>2012-02-09</td>
@@ -503,8 +468,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>19</td>
     </tr>
     <tr>
-      <th>398</th>
-      <td>1527</td>
+      <th>1527</th>
       <td>04u-szAykldu-caSDHQaKA</td>
       <td>0</td>
       <td>2012-02-09</td>
@@ -517,8 +481,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>19</td>
     </tr>
     <tr>
-      <th>2012</th>
-      <td>744</td>
+      <th>744</th>
       <td>07F9bkUm3cs83CzGvTi0TA</td>
       <td>1</td>
       <td>2015-03-15</td>
@@ -531,8 +494,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>384</td>
     </tr>
     <tr>
-      <th>215</th>
-      <td>744</td>
+      <th>744</th>
       <td>07F9bkUm3cs83CzGvTi0TA</td>
       <td>1</td>
       <td>2015-03-15</td>
@@ -545,8 +507,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>384</td>
     </tr>
     <tr>
-      <th>2520</th>
-      <td>2202</td>
+      <th>2202</th>
       <td>0QBFtNNj9RIggZGeivcbEg</td>
       <td>0</td>
       <td>2013-07-23</td>
@@ -559,8 +520,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>13</td>
     </tr>
     <tr>
-      <th>629</th>
-      <td>2202</td>
+      <th>2202</th>
       <td>0QBFtNNj9RIggZGeivcbEg</td>
       <td>0</td>
       <td>2013-07-23</td>
@@ -573,8 +533,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>13</td>
     </tr>
     <tr>
-      <th>871</th>
-      <td>3004</td>
+      <th>3004</th>
       <td>0bbWKI1lA-bmEeeWOrDmSA</td>
       <td>0</td>
       <td>2015-11-12</td>
@@ -587,8 +546,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>64</td>
     </tr>
     <tr>
-      <th>2192</th>
-      <td>3004</td>
+      <th>3004</th>
       <td>0bbWKI1lA-bmEeeWOrDmSA</td>
       <td>0</td>
       <td>2015-11-12</td>
@@ -601,8 +559,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>64</td>
     </tr>
     <tr>
-      <th>1992</th>
-      <td>3243</td>
+      <th>3243</th>
       <td>0dFOy1BeJWuYTyIsi-gAqw</td>
       <td>0</td>
       <td>2015-05-10</td>
@@ -615,8 +572,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>42</td>
     </tr>
     <tr>
-      <th>940</th>
-      <td>3243</td>
+      <th>3243</th>
       <td>0dFOy1BeJWuYTyIsi-gAqw</td>
       <td>0</td>
       <td>2015-05-10</td>
@@ -629,8 +585,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>42</td>
     </tr>
     <tr>
-      <th>859</th>
-      <td>2953</td>
+      <th>2953</th>
       <td>0yAJCh0TBZcnZkdZWZ6bVQ</td>
       <td>0</td>
       <td>2016-01-18</td>
@@ -643,8 +598,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>37</td>
     </tr>
     <tr>
-      <th>1435</th>
-      <td>2953</td>
+      <th>2953</th>
       <td>0yAJCh0TBZcnZkdZWZ6bVQ</td>
       <td>0</td>
       <td>2016-01-18</td>
@@ -657,8 +611,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>37</td>
     </tr>
     <tr>
-      <th>1538</th>
-      <td>4134</td>
+      <th>4134</th>
       <td>19VNsxhnPZ11zc0KBauonQ</td>
       <td>0</td>
       <td>2015-02-03</td>
@@ -671,8 +624,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>20</td>
     </tr>
     <tr>
-      <th>1169</th>
-      <td>4134</td>
+      <th>4134</th>
       <td>19VNsxhnPZ11zc0KBauonQ</td>
       <td>0</td>
       <td>2015-02-03</td>
@@ -685,8 +637,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>20</td>
     </tr>
     <tr>
-      <th>1678</th>
-      <td>3132</td>
+      <th>3132</th>
       <td>1ForN8iXqYZ_dZZcOkvVeA</td>
       <td>0</td>
       <td>2014-03-29</td>
@@ -699,8 +650,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>34</td>
     </tr>
     <tr>
-      <th>903</th>
-      <td>3132</td>
+      <th>3132</th>
       <td>1ForN8iXqYZ_dZZcOkvVeA</td>
       <td>0</td>
       <td>2014-03-29</td>
@@ -713,8 +663,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>34</td>
     </tr>
     <tr>
-      <th>1316</th>
-      <td>4652</td>
+      <th>4652</th>
       <td>1HnYxHZw2icWQ7-T4AmQ0Q</td>
       <td>0</td>
       <td>2017-06-18</td>
@@ -727,8 +676,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>24</td>
     </tr>
     <tr>
-      <th>1536</th>
-      <td>4652</td>
+      <th>4652</th>
       <td>1HnYxHZw2icWQ7-T4AmQ0Q</td>
       <td>0</td>
       <td>2017-06-18</td>
@@ -752,11 +700,9 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>...</td>
       <td>...</td>
       <td>...</td>
-      <td>...</td>
     </tr>
     <tr>
-      <th>1077</th>
-      <td>3776</td>
+      <th>3776</th>
       <td>wkChwNgC7YSc8KZgXiGT0Q</td>
       <td>1</td>
       <td>2016-09-12</td>
@@ -769,8 +715,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>22</td>
     </tr>
     <tr>
-      <th>2452</th>
-      <td>3776</td>
+      <th>3776</th>
       <td>wkChwNgC7YSc8KZgXiGT0Q</td>
       <td>1</td>
       <td>2016-09-12</td>
@@ -783,8 +728,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>22</td>
     </tr>
     <tr>
-      <th>2311</th>
-      <td>1777</td>
+      <th>1777</th>
       <td>wke61EJKd1Yw6q1BR1npZw</td>
       <td>0</td>
       <td>2014-07-23</td>
@@ -797,8 +741,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>49</td>
     </tr>
     <tr>
-      <th>482</th>
-      <td>1777</td>
+      <th>1777</th>
       <td>wke61EJKd1Yw6q1BR1npZw</td>
       <td>0</td>
       <td>2014-07-23</td>
@@ -811,8 +754,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>49</td>
     </tr>
     <tr>
-      <th>2330</th>
-      <td>3749</td>
+      <th>3749</th>
       <td>x5iQFVJkFl7fSXC6uVjwPw</td>
       <td>0</td>
       <td>2012-06-18</td>
@@ -825,8 +767,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>97</td>
     </tr>
     <tr>
-      <th>1064</th>
-      <td>3749</td>
+      <th>3749</th>
       <td>x5iQFVJkFl7fSXC6uVjwPw</td>
       <td>0</td>
       <td>2012-06-18</td>
@@ -839,8 +780,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>97</td>
     </tr>
     <tr>
-      <th>1430</th>
-      <td>2894</td>
+      <th>2894</th>
       <td>xVEtGucSRLk5pxxN0t4i6g</td>
       <td>1</td>
       <td>2009-06-09</td>
@@ -853,8 +793,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>59</td>
     </tr>
     <tr>
-      <th>845</th>
-      <td>2894</td>
+      <th>2894</th>
       <td>xVEtGucSRLk5pxxN0t4i6g</td>
       <td>1</td>
       <td>2009-06-09</td>
@@ -867,8 +806,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>59</td>
     </tr>
     <tr>
-      <th>556</th>
-      <td>1985</td>
+      <th>1985</th>
       <td>xkiYAerQQXL25legNhVsSw</td>
       <td>0</td>
       <td>2015-04-26</td>
@@ -881,8 +819,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>23</td>
     </tr>
     <tr>
-      <th>1943</th>
-      <td>1985</td>
+      <th>1985</th>
       <td>xkiYAerQQXL25legNhVsSw</td>
       <td>0</td>
       <td>2015-04-26</td>
@@ -895,8 +832,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>23</td>
     </tr>
     <tr>
-      <th>1789</th>
-      <td>1984</td>
+      <th>1984</th>
       <td>xmgLfJ5Jo6hHjY61hzO_EQ</td>
       <td>0</td>
       <td>2014-03-13</td>
@@ -909,8 +845,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>57</td>
     </tr>
     <tr>
-      <th>555</th>
-      <td>1984</td>
+      <th>1984</th>
       <td>xmgLfJ5Jo6hHjY61hzO_EQ</td>
       <td>0</td>
       <td>2014-03-13</td>
@@ -923,8 +858,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>57</td>
     </tr>
     <tr>
-      <th>788</th>
-      <td>2669</td>
+      <th>2669</th>
       <td>y9hgPwF68tpWEp6onX-3TQ</td>
       <td>0</td>
       <td>2017-10-26</td>
@@ -937,8 +871,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>52</td>
     </tr>
     <tr>
-      <th>2499</th>
-      <td>2669</td>
+      <th>2669</th>
       <td>y9hgPwF68tpWEp6onX-3TQ</td>
       <td>0</td>
       <td>2017-10-26</td>
@@ -951,8 +884,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>52</td>
     </tr>
     <tr>
-      <th>1359</th>
-      <td>4846</td>
+      <th>4846</th>
       <td>yADOyFmSlHuixlQ4MtHhcQ</td>
       <td>0</td>
       <td>2017-10-05</td>
@@ -965,8 +897,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>39</td>
     </tr>
     <tr>
-      <th>1655</th>
-      <td>4846</td>
+      <th>4846</th>
       <td>yADOyFmSlHuixlQ4MtHhcQ</td>
       <td>0</td>
       <td>2017-10-05</td>
@@ -979,8 +910,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>39</td>
     </tr>
     <tr>
-      <th>1414</th>
-      <td>3046</td>
+      <th>3046</th>
       <td>yQUXMWSA8H7wvkLa4iCD8g</td>
       <td>0</td>
       <td>2014-08-28</td>
@@ -993,8 +923,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>78</td>
     </tr>
     <tr>
-      <th>883</th>
-      <td>3046</td>
+      <th>3046</th>
       <td>yQUXMWSA8H7wvkLa4iCD8g</td>
       <td>0</td>
       <td>2014-08-28</td>
@@ -1007,8 +936,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>78</td>
     </tr>
     <tr>
-      <th>2373</th>
-      <td>3509</td>
+      <th>3509</th>
       <td>yY3jNsrpCyKTqQuRuLV8gw</td>
       <td>0</td>
       <td>2017-07-16</td>
@@ -1021,8 +949,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>26</td>
     </tr>
     <tr>
-      <th>989</th>
-      <td>3509</td>
+      <th>3509</th>
       <td>yY3jNsrpCyKTqQuRuLV8gw</td>
       <td>0</td>
       <td>2017-07-16</td>
@@ -1035,8 +962,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>26</td>
     </tr>
     <tr>
-      <th>2129</th>
-      <td>3041</td>
+      <th>3041</th>
       <td>ynyDiLHzTdf4du9xMhscxg</td>
       <td>0</td>
       <td>2015-10-30</td>
@@ -1049,8 +975,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>31</td>
     </tr>
     <tr>
-      <th>882</th>
-      <td>3041</td>
+      <th>3041</th>
       <td>ynyDiLHzTdf4du9xMhscxg</td>
       <td>0</td>
       <td>2015-10-30</td>
@@ -1063,8 +988,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>31</td>
     </tr>
     <tr>
-      <th>1515</th>
-      <td>2659</td>
+      <th>2659</th>
       <td>zJGtD3y-pAIGNId4codEEg</td>
       <td>1</td>
       <td>2013-08-11</td>
@@ -1077,8 +1001,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>150</td>
     </tr>
     <tr>
-      <th>785</th>
-      <td>2659</td>
+      <th>2659</th>
       <td>zJGtD3y-pAIGNId4codEEg</td>
       <td>1</td>
       <td>2013-08-11</td>
@@ -1091,8 +1014,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>150</td>
     </tr>
     <tr>
-      <th>1521</th>
-      <td>2193</td>
+      <th>2193</th>
       <td>zKw09ftu1730wEIZBZPoFg</td>
       <td>3</td>
       <td>2015-01-04</td>
@@ -1105,8 +1027,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>31</td>
     </tr>
     <tr>
-      <th>623</th>
-      <td>2193</td>
+      <th>2193</th>
       <td>zKw09ftu1730wEIZBZPoFg</td>
       <td>3</td>
       <td>2015-01-04</td>
@@ -1119,8 +1040,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>31</td>
     </tr>
     <tr>
-      <th>1483</th>
-      <td>496</td>
+      <th>496</th>
       <td>zg5rJfgT4jhzg1d6r2twnA</td>
       <td>0</td>
       <td>2014-06-21</td>
@@ -1133,8 +1053,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>62</td>
     </tr>
     <tr>
-      <th>118</th>
-      <td>496</td>
+      <th>496</th>
       <td>zg5rJfgT4jhzg1d6r2twnA</td>
       <td>0</td>
       <td>2014-06-21</td>
@@ -1147,8 +1066,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>62</td>
     </tr>
     <tr>
-      <th>274</th>
-      <td>988</td>
+      <th>988</th>
       <td>ziv21pDfyrgdhlrlNIgDfg</td>
       <td>0</td>
       <td>2016-08-11</td>
@@ -1161,8 +1079,7 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>62</td>
     </tr>
     <tr>
-      <th>1833</th>
-      <td>988</td>
+      <th>988</th>
       <td>ziv21pDfyrgdhlrlNIgDfg</td>
       <td>0</td>
       <td>2016-08-11</td>
@@ -1176,23 +1093,23 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
     </tr>
   </tbody>
 </table>
-<p>666 rows × 11 columns</p>
+<p>666 rows × 10 columns</p>
 </div>
 
 
 
-### Removing Duplicates
+### Remove duplicates
 
 
 ```python
 df = df[df.duplicated()]
 ```
 
-### Rechecking for Duplicates
+### Recheck for duplicates
 
 
 ```python
-#Duplicates should no longer exist
+# Duplicates should no longer exist
 df[df.duplicated(keep=False)].sort_values(by='business_id')
 ```
 
@@ -1217,7 +1134,6 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>Unnamed: 0</th>
       <th>business_id</th>
       <th>cool</th>
       <th>date</th>
@@ -1237,12 +1153,12 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
 
 
 
-### Creating Pivot Tables
+### Create pivot tables
 
 
 ```python
-#This transforms the data into a person by person spreadsheet and what stars they gave various restaurants
-#Most values are NaN (null or missing) because people only review a few restaurants of those that exist
+# This transforms the data into a person by person spreadsheet and what stars they gave various restaurants
+# Most values are NaN (null or missing) because people only review a few restaurants of those that exist
 usr_reviews = df.pivot(index='user_id', columns='business_id', values='stars')
 usr_reviews.head()
 ```
