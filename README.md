@@ -1,4 +1,3 @@
-
 # Data Cleaning in Pandas - Introduction
 
 ## Introduction
@@ -123,7 +122,19 @@ df.head()
 
 
 
-### Apply functions
+
+```python
+df.shape
+```
+
+
+
+
+    (2610, 9)
+
+
+
+### Apply lambda functions
 
 
 ```python
@@ -236,6 +247,18 @@ df.head()
 
 
 
+
+```python
+df.shape # Previously this was (2610, 9), now we have added a column
+```
+
+
+
+
+    (2610, 10)
+
+
+
 ### Group data
 
 
@@ -258,9 +281,27 @@ df.groupby('business_id')['stars'].mean().head()
 
 ### Check for duplicates
 
+Check how many we have:
+
 
 ```python
-# Use the keep=False to keep the duplicates and sort values to put duplicates next to each other
+df.duplicated().value_counts()
+```
+
+
+
+
+    False    2277
+    True      333
+    dtype: int64
+
+
+
+Visually inspect them:
+
+
+```python
+# Use keep=False to keep all duplicates and sort_values to put duplicates next to each other
 df[df.duplicated(keep=False)].sort_values(by='business_id')
 ```
 
@@ -364,331 +405,6 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>18</td>
     </tr>
     <tr>
-      <th>2767</th>
-      <td>-MKWJZnMjSit406AUKf7Pg</td>
-      <td>0</td>
-      <td>2015-01-03</td>
-      <td>2</td>
-      <td>rJhrQD3-b9GjTso0dxIkwg</td>
-      <td>1</td>
-      <td>Drove 37 miles on a Saturday at 12:30pm for lu...</td>
-      <td>0</td>
-      <td>kzP96uX8TUMmmvLtd-I3RQ</td>
-      <td>18</td>
-    </tr>
-    <tr>
-      <th>3126</th>
-      <td>-eIvRc3aEvufstBumpBTPQ</td>
-      <td>0</td>
-      <td>2015-07-02</td>
-      <td>0</td>
-      <td>rn49y5dm_3sRZ5_LrODFLA</td>
-      <td>5</td>
-      <td>After going to several physio clinics over the...</td>
-      <td>0</td>
-      <td>uK0LdXjF93PuPzVgo-Jsgg</td>
-      <td>95</td>
-    </tr>
-    <tr>
-      <th>3126</th>
-      <td>-eIvRc3aEvufstBumpBTPQ</td>
-      <td>0</td>
-      <td>2015-07-02</td>
-      <td>0</td>
-      <td>rn49y5dm_3sRZ5_LrODFLA</td>
-      <td>5</td>
-      <td>After going to several physio clinics over the...</td>
-      <td>0</td>
-      <td>uK0LdXjF93PuPzVgo-Jsgg</td>
-      <td>95</td>
-    </tr>
-    <tr>
-      <th>2092</th>
-      <td>-lJtyCOTVInWusU9YF120A</td>
-      <td>0</td>
-      <td>2015-11-08</td>
-      <td>0</td>
-      <td>qFNtxmCldq0bUoRF1OdpQA</td>
-      <td>5</td>
-      <td>One of our favorite Italian restaurants. Fabul...</td>
-      <td>0</td>
-      <td>Ac3vNCPDwirpxSkIwtcvVA</td>
-      <td>27</td>
-    </tr>
-    <tr>
-      <th>2092</th>
-      <td>-lJtyCOTVInWusU9YF120A</td>
-      <td>0</td>
-      <td>2015-11-08</td>
-      <td>0</td>
-      <td>qFNtxmCldq0bUoRF1OdpQA</td>
-      <td>5</td>
-      <td>One of our favorite Italian restaurants. Fabul...</td>
-      <td>0</td>
-      <td>Ac3vNCPDwirpxSkIwtcvVA</td>
-      <td>27</td>
-    </tr>
-    <tr>
-      <th>1707</th>
-      <td>01fuY2NNscttoTxOYbuZXw</td>
-      <td>0</td>
-      <td>2016-07-08</td>
-      <td>0</td>
-      <td>TUFmvhAynUbjSbOJa79sRw</td>
-      <td>5</td>
-      <td>Loved the food! Atmosphere funky and artsy. St...</td>
-      <td>0</td>
-      <td>MejkKZgdUNfekUoNO1QJOA</td>
-      <td>45</td>
-    </tr>
-    <tr>
-      <th>1707</th>
-      <td>01fuY2NNscttoTxOYbuZXw</td>
-      <td>0</td>
-      <td>2016-07-08</td>
-      <td>0</td>
-      <td>TUFmvhAynUbjSbOJa79sRw</td>
-      <td>5</td>
-      <td>Loved the food! Atmosphere funky and artsy. St...</td>
-      <td>0</td>
-      <td>MejkKZgdUNfekUoNO1QJOA</td>
-      <td>45</td>
-    </tr>
-    <tr>
-      <th>1527</th>
-      <td>04u-szAykldu-caSDHQaKA</td>
-      <td>0</td>
-      <td>2012-02-09</td>
-      <td>0</td>
-      <td>VkEeSwaqHgp6VFeANMoFow</td>
-      <td>4</td>
-      <td>I have been looking for a good Chinese restrai...</td>
-      <td>0</td>
-      <td>iNSL4q8MUvZ1ItVGboPpbQ</td>
-      <td>19</td>
-    </tr>
-    <tr>
-      <th>1527</th>
-      <td>04u-szAykldu-caSDHQaKA</td>
-      <td>0</td>
-      <td>2012-02-09</td>
-      <td>0</td>
-      <td>VkEeSwaqHgp6VFeANMoFow</td>
-      <td>4</td>
-      <td>I have been looking for a good Chinese restrai...</td>
-      <td>0</td>
-      <td>iNSL4q8MUvZ1ItVGboPpbQ</td>
-      <td>19</td>
-    </tr>
-    <tr>
-      <th>744</th>
-      <td>07F9bkUm3cs83CzGvTi0TA</td>
-      <td>1</td>
-      <td>2015-03-15</td>
-      <td>0</td>
-      <td>wgr_hOfIWlXR-glOC-qKYQ</td>
-      <td>5</td>
-      <td>Kudos to Charlotte Motor Speedway!! They took ...</td>
-      <td>1</td>
-      <td>Cxv3SNudPrCavvHJfIbwhQ</td>
-      <td>384</td>
-    </tr>
-    <tr>
-      <th>744</th>
-      <td>07F9bkUm3cs83CzGvTi0TA</td>
-      <td>1</td>
-      <td>2015-03-15</td>
-      <td>0</td>
-      <td>wgr_hOfIWlXR-glOC-qKYQ</td>
-      <td>5</td>
-      <td>Kudos to Charlotte Motor Speedway!! They took ...</td>
-      <td>1</td>
-      <td>Cxv3SNudPrCavvHJfIbwhQ</td>
-      <td>384</td>
-    </tr>
-    <tr>
-      <th>2202</th>
-      <td>0QBFtNNj9RIggZGeivcbEg</td>
-      <td>0</td>
-      <td>2013-07-23</td>
-      <td>0</td>
-      <td>6bzlzJj3jrbWSnXtv80D_A</td>
-      <td>5</td>
-      <td>Great food and service. Spinach enchiladas are...</td>
-      <td>0</td>
-      <td>VTjCebjbadCMAGRoXvs7Zw</td>
-      <td>13</td>
-    </tr>
-    <tr>
-      <th>2202</th>
-      <td>0QBFtNNj9RIggZGeivcbEg</td>
-      <td>0</td>
-      <td>2013-07-23</td>
-      <td>0</td>
-      <td>6bzlzJj3jrbWSnXtv80D_A</td>
-      <td>5</td>
-      <td>Great food and service. Spinach enchiladas are...</td>
-      <td>0</td>
-      <td>VTjCebjbadCMAGRoXvs7Zw</td>
-      <td>13</td>
-    </tr>
-    <tr>
-      <th>3004</th>
-      <td>0bbWKI1lA-bmEeeWOrDmSA</td>
-      <td>0</td>
-      <td>2015-11-12</td>
-      <td>0</td>
-      <td>71xNE0qpjhgEz44PgbfIDA</td>
-      <td>3</td>
-      <td>It's an ok place. Quantities are greater than ...</td>
-      <td>0</td>
-      <td>hjHrV1WzO8RDRYJ-ep2OZA</td>
-      <td>64</td>
-    </tr>
-    <tr>
-      <th>3004</th>
-      <td>0bbWKI1lA-bmEeeWOrDmSA</td>
-      <td>0</td>
-      <td>2015-11-12</td>
-      <td>0</td>
-      <td>71xNE0qpjhgEz44PgbfIDA</td>
-      <td>3</td>
-      <td>It's an ok place. Quantities are greater than ...</td>
-      <td>0</td>
-      <td>hjHrV1WzO8RDRYJ-ep2OZA</td>
-      <td>64</td>
-    </tr>
-    <tr>
-      <th>3243</th>
-      <td>0dFOy1BeJWuYTyIsi-gAqw</td>
-      <td>0</td>
-      <td>2015-05-10</td>
-      <td>1</td>
-      <td>ed8to80UuSExhgfJOyWphQ</td>
-      <td>1</td>
-      <td>Well I had to give a star because required. Th...</td>
-      <td>1</td>
-      <td>dOsSS5r_YXViQznl6EvXlg</td>
-      <td>42</td>
-    </tr>
-    <tr>
-      <th>3243</th>
-      <td>0dFOy1BeJWuYTyIsi-gAqw</td>
-      <td>0</td>
-      <td>2015-05-10</td>
-      <td>1</td>
-      <td>ed8to80UuSExhgfJOyWphQ</td>
-      <td>1</td>
-      <td>Well I had to give a star because required. Th...</td>
-      <td>1</td>
-      <td>dOsSS5r_YXViQznl6EvXlg</td>
-      <td>42</td>
-    </tr>
-    <tr>
-      <th>2953</th>
-      <td>0yAJCh0TBZcnZkdZWZ6bVQ</td>
-      <td>0</td>
-      <td>2016-01-18</td>
-      <td>0</td>
-      <td>qrzJrDPyfqP7djhb6sxb3A</td>
-      <td>4</td>
-      <td>i've been going for over a year. great service...</td>
-      <td>0</td>
-      <td>Y5DIwt-653VndVu53ATpLQ</td>
-      <td>37</td>
-    </tr>
-    <tr>
-      <th>2953</th>
-      <td>0yAJCh0TBZcnZkdZWZ6bVQ</td>
-      <td>0</td>
-      <td>2016-01-18</td>
-      <td>0</td>
-      <td>qrzJrDPyfqP7djhb6sxb3A</td>
-      <td>4</td>
-      <td>i've been going for over a year. great service...</td>
-      <td>0</td>
-      <td>Y5DIwt-653VndVu53ATpLQ</td>
-      <td>37</td>
-    </tr>
-    <tr>
-      <th>4134</th>
-      <td>19VNsxhnPZ11zc0KBauonQ</td>
-      <td>0</td>
-      <td>2015-02-03</td>
-      <td>0</td>
-      <td>iXEO9493AVcDZmOkGJpIgw</td>
-      <td>1</td>
-      <td>worst customer service.Mainly the manager Matt...</td>
-      <td>1</td>
-      <td>z7dWikbkqL7NelG4JeSt4g</td>
-      <td>20</td>
-    </tr>
-    <tr>
-      <th>4134</th>
-      <td>19VNsxhnPZ11zc0KBauonQ</td>
-      <td>0</td>
-      <td>2015-02-03</td>
-      <td>0</td>
-      <td>iXEO9493AVcDZmOkGJpIgw</td>
-      <td>1</td>
-      <td>worst customer service.Mainly the manager Matt...</td>
-      <td>1</td>
-      <td>z7dWikbkqL7NelG4JeSt4g</td>
-      <td>20</td>
-    </tr>
-    <tr>
-      <th>3132</th>
-      <td>1ForN8iXqYZ_dZZcOkvVeA</td>
-      <td>0</td>
-      <td>2014-03-29</td>
-      <td>0</td>
-      <td>9vEk6nrlA8fcej0SsbD3gA</td>
-      <td>5</td>
-      <td>This was the cutest little diner I have ever b...</td>
-      <td>1</td>
-      <td>ZcgHNMGUKp-J9hRqgoDx6A</td>
-      <td>34</td>
-    </tr>
-    <tr>
-      <th>3132</th>
-      <td>1ForN8iXqYZ_dZZcOkvVeA</td>
-      <td>0</td>
-      <td>2014-03-29</td>
-      <td>0</td>
-      <td>9vEk6nrlA8fcej0SsbD3gA</td>
-      <td>5</td>
-      <td>This was the cutest little diner I have ever b...</td>
-      <td>1</td>
-      <td>ZcgHNMGUKp-J9hRqgoDx6A</td>
-      <td>34</td>
-    </tr>
-    <tr>
-      <th>4652</th>
-      <td>1HnYxHZw2icWQ7-T4AmQ0Q</td>
-      <td>0</td>
-      <td>2017-06-18</td>
-      <td>0</td>
-      <td>fekMspN8qzJtai03tCUUvQ</td>
-      <td>5</td>
-      <td>Awesome place!!! Love that they have old style...</td>
-      <td>0</td>
-      <td>vuJ39vRaVZTgkT6I4L1jjA</td>
-      <td>24</td>
-    </tr>
-    <tr>
-      <th>4652</th>
-      <td>1HnYxHZw2icWQ7-T4AmQ0Q</td>
-      <td>0</td>
-      <td>2017-06-18</td>
-      <td>0</td>
-      <td>fekMspN8qzJtai03tCUUvQ</td>
-      <td>5</td>
-      <td>Awesome place!!! Love that they have old style...</td>
-      <td>0</td>
-      <td>vuJ39vRaVZTgkT6I4L1jjA</td>
-      <td>24</td>
-    </tr>
-    <tr>
       <th>...</th>
       <td>...</td>
       <td>...</td>
@@ -700,331 +416,6 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
       <td>...</td>
       <td>...</td>
       <td>...</td>
-    </tr>
-    <tr>
-      <th>3776</th>
-      <td>wkChwNgC7YSc8KZgXiGT0Q</td>
-      <td>1</td>
-      <td>2016-09-12</td>
-      <td>0</td>
-      <td>9n1T-wVxsfQZbQ3cdRf46A</td>
-      <td>5</td>
-      <td>Magnificent views at sunset. Excellent appetiz...</td>
-      <td>1</td>
-      <td>ceIxPqfjhZbMdht4tGk7TQ</td>
-      <td>22</td>
-    </tr>
-    <tr>
-      <th>3776</th>
-      <td>wkChwNgC7YSc8KZgXiGT0Q</td>
-      <td>1</td>
-      <td>2016-09-12</td>
-      <td>0</td>
-      <td>9n1T-wVxsfQZbQ3cdRf46A</td>
-      <td>5</td>
-      <td>Magnificent views at sunset. Excellent appetiz...</td>
-      <td>1</td>
-      <td>ceIxPqfjhZbMdht4tGk7TQ</td>
-      <td>22</td>
-    </tr>
-    <tr>
-      <th>1777</th>
-      <td>wke61EJKd1Yw6q1BR1npZw</td>
-      <td>0</td>
-      <td>2014-07-23</td>
-      <td>0</td>
-      <td>B03DD42snaOU-mbDtntohw</td>
-      <td>5</td>
-      <td>Now this is a great bar! Bartenders were perso...</td>
-      <td>0</td>
-      <td>9zVMFFM_J51ZaS2wMzPziA</td>
-      <td>49</td>
-    </tr>
-    <tr>
-      <th>1777</th>
-      <td>wke61EJKd1Yw6q1BR1npZw</td>
-      <td>0</td>
-      <td>2014-07-23</td>
-      <td>0</td>
-      <td>B03DD42snaOU-mbDtntohw</td>
-      <td>5</td>
-      <td>Now this is a great bar! Bartenders were perso...</td>
-      <td>0</td>
-      <td>9zVMFFM_J51ZaS2wMzPziA</td>
-      <td>49</td>
-    </tr>
-    <tr>
-      <th>3749</th>
-      <td>x5iQFVJkFl7fSXC6uVjwPw</td>
-      <td>0</td>
-      <td>2012-06-18</td>
-      <td>1</td>
-      <td>6qTtineIwJXZHVDmHtKDZg</td>
-      <td>1</td>
-      <td>We just moved to Mesa and were happy to hear a...</td>
-      <td>3</td>
-      <td>fOCV2evqdjDpfI-6ULvr5Q</td>
-      <td>97</td>
-    </tr>
-    <tr>
-      <th>3749</th>
-      <td>x5iQFVJkFl7fSXC6uVjwPw</td>
-      <td>0</td>
-      <td>2012-06-18</td>
-      <td>1</td>
-      <td>6qTtineIwJXZHVDmHtKDZg</td>
-      <td>1</td>
-      <td>We just moved to Mesa and were happy to hear a...</td>
-      <td>3</td>
-      <td>fOCV2evqdjDpfI-6ULvr5Q</td>
-      <td>97</td>
-    </tr>
-    <tr>
-      <th>2894</th>
-      <td>xVEtGucSRLk5pxxN0t4i6g</td>
-      <td>1</td>
-      <td>2009-06-09</td>
-      <td>0</td>
-      <td>9bfnqemozlvKzbmc8gbItw</td>
-      <td>5</td>
-      <td>The best piece of meat I have ever had!!! This...</td>
-      <td>1</td>
-      <td>r2hoX58seF3kwP-U2W__QA</td>
-      <td>59</td>
-    </tr>
-    <tr>
-      <th>2894</th>
-      <td>xVEtGucSRLk5pxxN0t4i6g</td>
-      <td>1</td>
-      <td>2009-06-09</td>
-      <td>0</td>
-      <td>9bfnqemozlvKzbmc8gbItw</td>
-      <td>5</td>
-      <td>The best piece of meat I have ever had!!! This...</td>
-      <td>1</td>
-      <td>r2hoX58seF3kwP-U2W__QA</td>
-      <td>59</td>
-    </tr>
-    <tr>
-      <th>1985</th>
-      <td>xkiYAerQQXL25legNhVsSw</td>
-      <td>0</td>
-      <td>2015-04-26</td>
-      <td>0</td>
-      <td>cIyDRhWeHtZ_pDQBe4sG8Q</td>
-      <td>4</td>
-      <td>The pizza was ok and the chips as an appetizer...</td>
-      <td>0</td>
-      <td>zdG-3ABz7-mv1P3cs2_Rfg</td>
-      <td>23</td>
-    </tr>
-    <tr>
-      <th>1985</th>
-      <td>xkiYAerQQXL25legNhVsSw</td>
-      <td>0</td>
-      <td>2015-04-26</td>
-      <td>0</td>
-      <td>cIyDRhWeHtZ_pDQBe4sG8Q</td>
-      <td>4</td>
-      <td>The pizza was ok and the chips as an appetizer...</td>
-      <td>0</td>
-      <td>zdG-3ABz7-mv1P3cs2_Rfg</td>
-      <td>23</td>
-    </tr>
-    <tr>
-      <th>1984</th>
-      <td>xmgLfJ5Jo6hHjY61hzO_EQ</td>
-      <td>0</td>
-      <td>2014-03-13</td>
-      <td>0</td>
-      <td>1dartEoF9n7-Fcgx7DWilA</td>
-      <td>1</td>
-      <td>Went on a Sunday and the gal did not use sanit...</td>
-      <td>0</td>
-      <td>Xu6kxX18Uv14MSZTY7PSgw</td>
-      <td>57</td>
-    </tr>
-    <tr>
-      <th>1984</th>
-      <td>xmgLfJ5Jo6hHjY61hzO_EQ</td>
-      <td>0</td>
-      <td>2014-03-13</td>
-      <td>0</td>
-      <td>1dartEoF9n7-Fcgx7DWilA</td>
-      <td>1</td>
-      <td>Went on a Sunday and the gal did not use sanit...</td>
-      <td>0</td>
-      <td>Xu6kxX18Uv14MSZTY7PSgw</td>
-      <td>57</td>
-    </tr>
-    <tr>
-      <th>2669</th>
-      <td>y9hgPwF68tpWEp6onX-3TQ</td>
-      <td>0</td>
-      <td>2017-10-26</td>
-      <td>0</td>
-      <td>aNIPAlsp_cO1VhyP8ReJ7g</td>
-      <td>3</td>
-      <td>I wanted to give this place 5 stars the beer i...</td>
-      <td>0</td>
-      <td>U_SbWcSZRLfkvZt3jshKJA</td>
-      <td>52</td>
-    </tr>
-    <tr>
-      <th>2669</th>
-      <td>y9hgPwF68tpWEp6onX-3TQ</td>
-      <td>0</td>
-      <td>2017-10-26</td>
-      <td>0</td>
-      <td>aNIPAlsp_cO1VhyP8ReJ7g</td>
-      <td>3</td>
-      <td>I wanted to give this place 5 stars the beer i...</td>
-      <td>0</td>
-      <td>U_SbWcSZRLfkvZt3jshKJA</td>
-      <td>52</td>
-    </tr>
-    <tr>
-      <th>4846</th>
-      <td>yADOyFmSlHuixlQ4MtHhcQ</td>
-      <td>0</td>
-      <td>2017-10-05</td>
-      <td>0</td>
-      <td>pE6BNYU3mEi9y1pS5fnPpQ</td>
-      <td>5</td>
-      <td>The servers in this place are great they all k...</td>
-      <td>0</td>
-      <td>06LACu59TbIHOXYn14CkPA</td>
-      <td>39</td>
-    </tr>
-    <tr>
-      <th>4846</th>
-      <td>yADOyFmSlHuixlQ4MtHhcQ</td>
-      <td>0</td>
-      <td>2017-10-05</td>
-      <td>0</td>
-      <td>pE6BNYU3mEi9y1pS5fnPpQ</td>
-      <td>5</td>
-      <td>The servers in this place are great they all k...</td>
-      <td>0</td>
-      <td>06LACu59TbIHOXYn14CkPA</td>
-      <td>39</td>
-    </tr>
-    <tr>
-      <th>3046</th>
-      <td>yQUXMWSA8H7wvkLa4iCD8g</td>
-      <td>0</td>
-      <td>2014-08-28</td>
-      <td>0</td>
-      <td>KmKCR_cHmAYA12Uy3XPHCA</td>
-      <td>2</td>
-      <td>Rude waitress and slow service. No offers for ...</td>
-      <td>1</td>
-      <td>KeYB7tU5F5PFb7X1QoWJ6Q</td>
-      <td>78</td>
-    </tr>
-    <tr>
-      <th>3046</th>
-      <td>yQUXMWSA8H7wvkLa4iCD8g</td>
-      <td>0</td>
-      <td>2014-08-28</td>
-      <td>0</td>
-      <td>KmKCR_cHmAYA12Uy3XPHCA</td>
-      <td>2</td>
-      <td>Rude waitress and slow service. No offers for ...</td>
-      <td>1</td>
-      <td>KeYB7tU5F5PFb7X1QoWJ6Q</td>
-      <td>78</td>
-    </tr>
-    <tr>
-      <th>3509</th>
-      <td>yY3jNsrpCyKTqQuRuLV8gw</td>
-      <td>0</td>
-      <td>2017-07-16</td>
-      <td>0</td>
-      <td>rWc72Fx8ZKuat39dI-JLyw</td>
-      <td>5</td>
-      <td>Amazing food and drinks. I've tried multiple m...</td>
-      <td>0</td>
-      <td>SGc1Qk_LR8G8WEEA5QafEw</td>
-      <td>26</td>
-    </tr>
-    <tr>
-      <th>3509</th>
-      <td>yY3jNsrpCyKTqQuRuLV8gw</td>
-      <td>0</td>
-      <td>2017-07-16</td>
-      <td>0</td>
-      <td>rWc72Fx8ZKuat39dI-JLyw</td>
-      <td>5</td>
-      <td>Amazing food and drinks. I've tried multiple m...</td>
-      <td>0</td>
-      <td>SGc1Qk_LR8G8WEEA5QafEw</td>
-      <td>26</td>
-    </tr>
-    <tr>
-      <th>3041</th>
-      <td>ynyDiLHzTdf4du9xMhscxg</td>
-      <td>0</td>
-      <td>2015-10-30</td>
-      <td>0</td>
-      <td>M-0AaEDTwBSIv_HJu4-pjw</td>
-      <td>5</td>
-      <td>Rachael is an artist! I've been going to her f...</td>
-      <td>0</td>
-      <td>lYXRVN2TJDEVB39G3HzplA</td>
-      <td>31</td>
-    </tr>
-    <tr>
-      <th>3041</th>
-      <td>ynyDiLHzTdf4du9xMhscxg</td>
-      <td>0</td>
-      <td>2015-10-30</td>
-      <td>0</td>
-      <td>M-0AaEDTwBSIv_HJu4-pjw</td>
-      <td>5</td>
-      <td>Rachael is an artist! I've been going to her f...</td>
-      <td>0</td>
-      <td>lYXRVN2TJDEVB39G3HzplA</td>
-      <td>31</td>
-    </tr>
-    <tr>
-      <th>2659</th>
-      <td>zJGtD3y-pAIGNId4codEEg</td>
-      <td>1</td>
-      <td>2013-08-11</td>
-      <td>1</td>
-      <td>lwInYPtM4M2jfAftXk-xlA</td>
-      <td>4</td>
-      <td>We've been to Otro many times. Stick with the ...</td>
-      <td>1</td>
-      <td>BjmYO90f7e7oiwyoffC82w</td>
-      <td>150</td>
-    </tr>
-    <tr>
-      <th>2659</th>
-      <td>zJGtD3y-pAIGNId4codEEg</td>
-      <td>1</td>
-      <td>2013-08-11</td>
-      <td>1</td>
-      <td>lwInYPtM4M2jfAftXk-xlA</td>
-      <td>4</td>
-      <td>We've been to Otro many times. Stick with the ...</td>
-      <td>1</td>
-      <td>BjmYO90f7e7oiwyoffC82w</td>
-      <td>150</td>
-    </tr>
-    <tr>
-      <th>2193</th>
-      <td>zKw09ftu1730wEIZBZPoFg</td>
-      <td>3</td>
-      <td>2015-01-04</td>
-      <td>0</td>
-      <td>JV-yxKxMFp-d0rLDc_2_6w</td>
-      <td>5</td>
-      <td>So relaxing combined with the meditation  and ...</td>
-      <td>5</td>
-      <td>3mZFkwfa6XV0BBazRTva9w</td>
-      <td>31</td>
     </tr>
     <tr>
       <th>2193</th>
@@ -1102,10 +493,31 @@ df[df.duplicated(keep=False)].sort_values(by='business_id')
 
 
 ```python
-df = df[df.duplicated()]
+df = df.drop_duplicates()
+df.shape # Previously this was (2610, 10), now we have dropped duplicate rows
 ```
 
+
+
+
+    (2277, 10)
+
+
+
 ### Recheck for duplicates
+
+
+```python
+df.duplicated().value_counts()
+```
+
+
+
+
+    False    2277
+    dtype: int64
+
+
 
 
 ```python
@@ -1184,27 +596,27 @@ usr_reviews.head()
   <thead>
     <tr style="text-align: right;">
       <th>business_id</th>
+      <th>-050d_XIor1NpCuWkbIVaQ</th>
+      <th>-0qht1roIqleKiQkBLDkbw</th>
+      <th>-3zffZUHoY8bQjGfPSoBKQ</th>
+      <th>-6tvduBzjLI1ISfs3F_qTg</th>
+      <th>-9nai28tnoylwViuJVrYEQ</th>
+      <th>-C8sSrFqaCxp51pyo-fQLQ</th>
+      <th>-Dnh48f029YNugtMKkkI-Q</th>
+      <th>-FLnsWAa4AGEW4NgE8Fqew</th>
+      <th>-G7MPSNBpxRJmtrJxdwt7A</th>
       <th>-GY2fx-8udXPY8qn2HVBCg</th>
-      <th>-LRlx2j9_LB3evsRRcC9MA</th>
-      <th>-MKWJZnMjSit406AUKf7Pg</th>
-      <th>-eIvRc3aEvufstBumpBTPQ</th>
-      <th>-lJtyCOTVInWusU9YF120A</th>
-      <th>01fuY2NNscttoTxOYbuZXw</th>
-      <th>04u-szAykldu-caSDHQaKA</th>
-      <th>07F9bkUm3cs83CzGvTi0TA</th>
-      <th>0QBFtNNj9RIggZGeivcbEg</th>
-      <th>0bbWKI1lA-bmEeeWOrDmSA</th>
       <th>...</th>
-      <th>xmgLfJ5Jo6hHjY61hzO_EQ</th>
-      <th>y9hgPwF68tpWEp6onX-3TQ</th>
-      <th>yADOyFmSlHuixlQ4MtHhcQ</th>
-      <th>yQUXMWSA8H7wvkLa4iCD8g</th>
-      <th>yY3jNsrpCyKTqQuRuLV8gw</th>
-      <th>ynyDiLHzTdf4du9xMhscxg</th>
-      <th>zJGtD3y-pAIGNId4codEEg</th>
-      <th>zKw09ftu1730wEIZBZPoFg</th>
+      <th>zdE82PiD6wquvjYLyhOJNA</th>
+      <th>zdd3hyxB8ylYV6RcNe347Q</th>
       <th>zg5rJfgT4jhzg1d6r2twnA</th>
       <th>ziv21pDfyrgdhlrlNIgDfg</th>
+      <th>zkhBU5qW_zCy0q4OEtIrsA</th>
+      <th>ztP466jMUMtqLwwHqXbk9w</th>
+      <th>zw9_mqWBn1QCfZg88w0Exg</th>
+      <th>zwNLJ2VglfEvGu7DDZjJ4g</th>
+      <th>zzYaAiC0rLNSDiFQlMKOEQ</th>
+      <th>zzgSiOnuUjnBnmfR-ZG4ww</th>
     </tr>
     <tr>
       <th>user_id</th>
@@ -1233,6 +645,78 @@ usr_reviews.head()
   </thead>
   <tbody>
     <tr>
+      <th>-0biHfjE0soSptbU5G3nug</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>-2K0yp7lBT_JUOzGkpdJ_g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>-Opvc9hAWllZSSPDUsD7NA</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
       <th>-Zdxj4wuj4D_899B7tPE3g</th>
       <td>NaN</td>
       <td>NaN</td>
@@ -1257,79 +741,7 @@ usr_reviews.head()
       <td>NaN</td>
     </tr>
     <tr>
-      <th>-ciBvC2RcMtt3JeRW0NDvg</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>06LACu59TbIHOXYn14CkPA</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>5.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>0XKTRsa8Y1A3RHJB5LhuUg</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>17YRCR1n1FcLAerv2qtmkw</th>
+      <th>-_iULENf28RbqL2k0ja5Xw</th>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -1354,7 +766,7 @@ usr_reviews.head()
     </tr>
   </tbody>
 </table>
-<p>5 rows × 331 columns</p>
+<p>5 rows × 2192 columns</p>
 </div>
 
 
