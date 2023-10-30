@@ -12,7 +12,7 @@ ETL is an essential first step to data analysis and data science. It also will f
 
 ## Quick ETL Example
 
-While you'll see complete examples and explanations for all of these techniques (and more), here's a quick preview of some ETL techniques covered in this section! For more details, continue on to future lessons!
+While you'll see complete examples and explanations for all of these techniques (and more), here's a quick preview of some ETL techniques covered in this section.
 
 ### Import data
 
@@ -773,4 +773,4 @@ usr_reviews.head()
 
 ## Summary
 
-In this brief introduction, you learned the acronym ETL and got to preview a few examples of ETL processes using pandas. In the upcoming lessons you'll get a much richer understanding of these and other techniques for wrangling your data!
+In this brief introduction, you learned the acronym ETL and got to preview a few examples of ETL processes using pandas.
